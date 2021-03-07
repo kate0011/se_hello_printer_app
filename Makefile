@@ -26,8 +26,11 @@ USERNAME=kate0011
 TAG=$(USERNAME)/hello-world-printer
 
 
-docker_push: decker_build
+docker_push: docker_build
 		@docker login --username $(USERNAME) --PASSWORD $${DOCKER_PASSWORD}; \
-		docker tag hello-hello-world-printer $TAG; \
-		docker_push $(TAG); \
+		docker tag hello-world-printer $(TAG); \
+		docker push $(TAG); \
 		docker logout;
+
+test_smoke:
+		curl --fail 127.0.0.1:5000
